@@ -23,7 +23,11 @@ public class Frame {
 	public boolean isStrikeOrSpare() {
 		return this.getScore() >= 10;
 	}
-
+	
+	public boolean isStrikeAndSpare() {
+		return this.getScore() == 20;
+	}
+	
 	public boolean isStrike() {
 		return pinsKnockedDown
 					.stream()

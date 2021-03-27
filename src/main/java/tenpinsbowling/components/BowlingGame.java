@@ -11,6 +11,12 @@ import tenpinsbowling.models.BowlingScore;
 import tenpinsbowling.models.Frame;
 import tenpinsbowling.models.Turn;
 
+/**
+ * This class represents a Bowling Game and its logics
+ * 
+ * @author pongelupe
+ *
+ */
 public class BowlingGame {
 
 	private static final int DEFAULT_FRAMES_QUANTITY = 10;
@@ -26,6 +32,13 @@ public class BowlingGame {
 		framesQuantity = defaultFramesQuantity;
 	}
 	
+	/**
+	 * This method maps the inputed turns into a list of {@link Frame}
+	 * representing a complete game of bowling
+	 * 
+	 * @param turns
+	 * @return
+	 */
 	public Map<String, List<Frame>> getFramesPerPlayerFromTurns(List<Turn> turns) {
 		return turns.stream()
 			.collect(Collectors.groupingBy(Turn::getPlayerName))

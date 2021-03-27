@@ -11,6 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This class is responsable to read the input files from the resource folder.
+ * 
+ * @author pongelupe
+ *
+ */
 public class FileInputReader implements Closeable {
 
 	private static final String DEFAULT_DELIMITER = "\t";
