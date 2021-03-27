@@ -2,11 +2,12 @@ package tenpinsbowling;
 
 import java.io.IOException;
 
+import tenpinsbowling.components.BowlingGame;
 import tenpinsbowling.components.FileInputReader;
 import tenpinsbowling.models.Turn;
 
 public class App {
-
+	
 /**
  *
  * The first must be the name of a input file inside src/main/resources
@@ -21,10 +22,8 @@ public class App {
 
 		var turns = fileReader.readAllLines(Turn.class);
 		
-		for (Turn turn : turns) {
-			System.out.println(turn);
-		}
-		
+		var bowlingGame = new BowlingGame();
+		bowlingGame.getFramesPerPlayerFromTurns(turns);
 		
 		fileReader.close();
 	}

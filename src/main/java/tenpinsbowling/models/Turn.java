@@ -1,23 +1,25 @@
 package tenpinsbowling.models;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import tenpinsbowling.components.FromString;
 
 @NoArgsConstructor
-@Getter
-@ToString
+@AllArgsConstructor
+@Data
+@Builder
 public class Turn implements FromString {
 
 	private String playerName;
 	
-	private String score;
+	private String pinsKnockedDown;
 
 	@Override
 	public FromString fromString(String... args) {
 		this.playerName = args[0];
-		this.score = args[1];
+		this.pinsKnockedDown = args[1];
 		
 		return this;
 	}
