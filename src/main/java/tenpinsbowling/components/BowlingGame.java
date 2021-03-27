@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import lombok.Getter;
 import tenpinsbowling.models.BowlingScore;
 import tenpinsbowling.models.Frame;
 import tenpinsbowling.models.Turn;
@@ -14,6 +15,7 @@ public class BowlingGame {
 
 	private static final int DEFAULT_FRAMES_QUANTITY = 10;
 	
+	@Getter
 	private final int framesQuantity;
 	
 	public BowlingGame() {

@@ -17,5 +17,17 @@ public class Frame {
 	
 	private int score;
 	
-	private int accumulativeScore;
+	private Integer accumulativeScore;
+	
+	
+	public boolean isStrikeOrSpare() {
+		return this.getScore() >= 10;
+	}
+
+	public boolean isStrike() {
+		return pinsKnockedDown
+					.stream()
+					.anyMatch(p -> p.equals(BowlingScore.STRIKE.getRepresentation()) 
+							|| p.equals(String.valueOf(BowlingScore.STRIKE.getValue())));
+	}
 }
