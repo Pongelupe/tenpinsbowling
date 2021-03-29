@@ -39,7 +39,7 @@ public class BowlingGameScoreResultPrinter {
 			})
 			.collect(Collectors.joining(BREAK_LINE));
 		
-		return frame + players;
+		return frame + players + BREAK_LINE;
 	}
 
 	private String preparePinfalls(Entry<String, List<Frame>> e) {

@@ -1,6 +1,7 @@
 package tenpinsbowling;
 
 import java.io.IOException;
+import java.util.List;
 
 import tenpinsbowling.components.BowlingGame;
 import tenpinsbowling.components.BowlingGameScoreCalculator;
@@ -18,30 +19,43 @@ public class App {
 
 	/**
 	 *
-	 * The first must be the name of a input file inside src/main/resources
+	 * The path to the input file must be the first argument
 	 * 
 	 * @param args
 	 * @throws IOException
 	 */
-	public static void main(String... args) throws Exception {
-		var filename = args[0];
+	public static void main(String... args) {
+		try {
+			var turns = getTurnsFromFile(getFilePath(args));
 
-		var fileReader = new FileInputReader(filename);
+			var bowlingGame = new BowlingGame();
+			var bowlingGameScoreCalculator = new BowlingGameScoreCalculator();
+			var framesPerPlayer = bowlingGame.play(turns);
+			framesPerPlayer.forEach((e, f) -> bowlingGameScoreCalculator.fillAccumutativeScore(f));
 
-		var turns = fileReader.readAllLines(Turn.class);
+			var resultPrinter = new BowlingGameScoreResultPrinter(framesPerPlayer);
 
-		var bowlingGame = new BowlingGame();
-		var bowlingGameScoreCalculator = new BowlingGameScoreCalculator();
-		var framesPerPlayer = bowlingGame.getFramesPerPlayerFromTurns(turns);
-		framesPerPlayer.forEach((e, f) -> bowlingGameScoreCalculator.fillAccumutativeScore(f));
+			var print = resultPrinter.preparePrint();
 
-		var resultPrinter = new BowlingGameScoreResultPrinter(framesPerPlayer);
+			System.out.println(print);
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+	}
 
-		var print = resultPrinter.preparePrint();
+	private static String getFilePath(String[] args) {
+		if (args.length == 0) {
+			throw new IllegalArgumentException("The file path must be informed");
+		}
+		return args[0];
+	}
 
-		System.out.println(print);
-
-		fileReader.close();
+	private static List<Turn> getTurnsFromFile(String path) {
+		try (var fileReader = new FileInputReader(path)) {
+			return fileReader.readAllLines(Turn.class);
+		} catch (IOException e) {
+			throw new IllegalArgumentException("The file informed does not exist");
+		}
 	}
 
 }

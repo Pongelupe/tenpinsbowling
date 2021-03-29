@@ -24,23 +24,26 @@ public class BowlingGame {
 	@Getter
 	private final int framesQuantity;
 	
+	private final BowlingGameValidator gameValidator;
+	
 	public BowlingGame() {
 		this(DEFAULT_FRAMES_QUANTITY);
 	}
 
 	public BowlingGame(int defaultFramesQuantity) {
 		framesQuantity = defaultFramesQuantity;
+		gameValidator = new BowlingGameValidator();
 	}
 	
 	/**
 	 * This method maps the inputed turns into a list of {@link Frame}
-	 * representing a complete game of bowling
+	 * representing a complete game of bowling. This is the play
 	 * 
 	 * @param turns
 	 * @return
 	 */
-	public Map<String, List<Frame>> getFramesPerPlayerFromTurns(List<Turn> turns) {
-		return turns.stream()
+	public Map<String, List<Frame>> play(List<Turn> turns) {
+		var game = turns.stream()
 			.collect(Collectors.groupingBy(Turn::getPlayerName))
 			.entrySet()
 			.stream()
@@ -86,6 +89,10 @@ public class BowlingGame {
 				acc.putAll(el);
 				return acc;
 			});
+		
+		gameValidator.validate(game, framesQuantity);
+		
+		return game;
 	}
 	
 	/**

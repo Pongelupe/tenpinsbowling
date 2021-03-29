@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -25,12 +24,12 @@ public class FileInputReader implements Closeable {
 
 	private final String delimiter;
 
-	public FileInputReader(String path, String delimiter) throws FileNotFoundException, URISyntaxException {
+	public FileInputReader(String path, String delimiter) throws FileNotFoundException {
 		this.delimiter = delimiter;
-		scanner = new Scanner(new FileInputStream(new File(getClass().getClassLoader().getResource(path).toURI())));
+		scanner = new Scanner(new FileInputStream(new File(path)));
 	}
 
-	public FileInputReader(String path) throws FileNotFoundException, URISyntaxException {
+	public FileInputReader(String path) throws FileNotFoundException {
 		this(path, DEFAULT_DELIMITER);
 	}
 
@@ -43,6 +42,8 @@ public class FileInputReader implements Closeable {
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
 				throw new IllegalArgumentException("The class informed must have a no Arguments constructor");
+			} catch (ArrayIndexOutOfBoundsException e) {
+				throw new IllegalArgumentException("The file informed does not represents a " + clazz.getSimpleName());
 			}
 		} else {
 			return null;

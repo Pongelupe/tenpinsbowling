@@ -15,7 +15,7 @@ import lombok.Getter;
 @Getter
 public enum BowlingScore {
 
-	STRIKE("X", 10), SPARE("/", 10), FOUL("F", 0);
+	STRIKE("X", 10), SPARE("/", 10), FOUL("F", 0), INVALID(null, -1);
 
 	private final String representation;
 
@@ -26,8 +26,12 @@ public enum BowlingScore {
 		try {
 			score = Integer.parseInt(pinsKnockedDown);
 		} catch (NumberFormatException e) {
-			score = Arrays.asList(BowlingScore.values()).stream().filter(s -> s.representation.equals(pinsKnockedDown))
-					.findFirst().orElse(FOUL).getValue();
+			score = Arrays.asList(BowlingScore.values())
+					.stream()
+					.filter(s -> s.representation.equals(pinsKnockedDown))
+					.findFirst()
+					.orElse(INVALID)
+					.getValue();
 		}
 
 		return score;

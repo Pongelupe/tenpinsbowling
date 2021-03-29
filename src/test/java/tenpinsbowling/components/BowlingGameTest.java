@@ -33,13 +33,15 @@ public class BowlingGameTest {
 
 	@Test
 	public void testGetFramesPerPlayerFromTurnssWithOnePlayer() {
-		var turns = Arrays.asList(john3Pins, john3Pins);
+		var turns = Arrays.asList(john3Pins, john3Pins, john3Pins, john3Pins, john3Pins, john3Pins, john3Pins,
+				john3Pins, john3Pins, john3Pins, john3Pins, john3Pins, john3Pins, john3Pins, john3Pins, john3Pins,
+				john3Pins, john3Pins, john3Pins, john3Pins);
 
-		var framesPerPlayer = target.getFramesPerPlayerFromTurns(turns);
+		var framesPerPlayer = target.play(turns);
 		assertEquals(1, framesPerPlayer.size());
 
 		var johnsFrames = framesPerPlayer.get("John");
-		assertEquals(1, johnsFrames.size());
+		assertEquals(10, johnsFrames.size());
 		var frame = johnsFrames.get(0);
 
 		assertEquals(1, frame.getNumber());
@@ -47,18 +49,19 @@ public class BowlingGameTest {
 		assertEquals(Arrays.asList("3", "3"), frame.getPinsKnockedDown());
 		assertEquals(6, frame.getScore());
 	}
-	
+
 	@Test
 	public void testGetFramesPerPlayerFromTurnssWithOnePlayerWithStrike() {
-		var turns = Arrays.asList(carlStrike);
-		
-		var framesPerPlayer = target.getFramesPerPlayerFromTurns(turns);
+		var turns = Arrays.asList(carlStrike, carlStrike, carlStrike, carlStrike, carlStrike, carlStrike, carlStrike,
+				carlStrike, carlStrike, carlStrike, carlStrike, carlStrike);
+
+		var framesPerPlayer = target.play(turns);
 		assertEquals(1, framesPerPlayer.size());
-		
+
 		var johnsFrames = framesPerPlayer.get("Carl");
-		assertEquals(1, johnsFrames.size());
+		assertEquals(10, johnsFrames.size());
 		var frame = johnsFrames.get(0);
-		
+
 		assertEquals(1, frame.getNumber());
 		assertEquals("Carl", frame.getPlayer());
 		assertEquals(Arrays.asList("X"), frame.getPinsKnockedDown());
@@ -67,13 +70,15 @@ public class BowlingGameTest {
 
 	@Test
 	public void testGetFramesPerPlayerFromTurnssWithFoulOnePlayer() {
-		var turns = Arrays.asList(john3Pins, johnFoul);
+		var turns = Arrays.asList(john3Pins, johnFoul, john3Pins, johnFoul, john3Pins, johnFoul, john3Pins, johnFoul,
+				john3Pins, johnFoul, john3Pins, johnFoul, john3Pins, johnFoul, john3Pins, johnFoul, john3Pins, johnFoul,
+				john3Pins, johnFoul);
 
-		var framesPerPlayer = target.getFramesPerPlayerFromTurns(turns);
+		var framesPerPlayer = target.play(turns);
 		assertEquals(1, framesPerPlayer.size());
 
 		var johnsFrames = framesPerPlayer.get("John");
-		assertEquals(1, johnsFrames.size());
+		assertEquals(10, johnsFrames.size());
 		var frame = johnsFrames.get(0);
 
 		assertEquals(1, frame.getNumber());
@@ -84,13 +89,17 @@ public class BowlingGameTest {
 
 	@Test
 	public void testGetFramesPerPlayerFromTurnssWithTwoPlayers() {
-		var turns = Arrays.asList(john3Pins, john3Pins, jeff4Pins, jeff4Pins);
+		var turns = Arrays.asList(john3Pins, john3Pins, jeff4Pins, jeff4Pins, john3Pins, john3Pins, jeff4Pins,
+				jeff4Pins, john3Pins, john3Pins, jeff4Pins, jeff4Pins, john3Pins, john3Pins, jeff4Pins, jeff4Pins,
+				john3Pins, john3Pins, jeff4Pins, jeff4Pins, john3Pins, john3Pins, jeff4Pins, jeff4Pins, john3Pins,
+				john3Pins, jeff4Pins, jeff4Pins, john3Pins, john3Pins, jeff4Pins, jeff4Pins, john3Pins, john3Pins,
+				jeff4Pins, jeff4Pins, john3Pins, john3Pins, jeff4Pins, jeff4Pins);
 
-		var framesPerPlayer = target.getFramesPerPlayerFromTurns(turns);
+		var framesPerPlayer = target.play(turns);
 		assertEquals(2, framesPerPlayer.size());
 
 		var johnsFrames = framesPerPlayer.get("John");
-		assertEquals(1, johnsFrames.size());
+		assertEquals(10, johnsFrames.size());
 		var frameJohn = johnsFrames.get(0);
 
 		assertEquals(1, frameJohn.getNumber());
@@ -99,7 +108,7 @@ public class BowlingGameTest {
 		assertEquals(6, frameJohn.getScore());
 
 		var jeffsFrames = framesPerPlayer.get("Jeff");
-		assertEquals(1, jeffsFrames.size());
+		assertEquals(10, jeffsFrames.size());
 		var frameJeff = jeffsFrames.get(0);
 
 		assertEquals(1, frameJeff.getNumber());
@@ -111,9 +120,9 @@ public class BowlingGameTest {
 	@Test
 	public void testGetFramesPerPlayerFromTurnssWithPerfectGame() {
 		var turns = Arrays.asList(carlStrike, carlStrike, carlStrike, carlStrike, carlStrike, carlStrike, carlStrike,
-				carlStrike, carlStrike, carlStrike, carlStrike, carlStrike); // Twelve strikes 
+				carlStrike, carlStrike, carlStrike, carlStrike, carlStrike); // Twelve strikes
 
-		var framesPerPlayer = target.getFramesPerPlayerFromTurns(turns);
+		var framesPerPlayer = target.play(turns);
 		assertEquals(1, framesPerPlayer.size());
 
 		var carlsFrames = framesPerPlayer.get("Carl");
@@ -133,7 +142,7 @@ public class BowlingGameTest {
 				johnFoul, johnFoul, johnFoul, johnFoul, johnFoul, johnFoul, johnFoul, johnFoul, johnFoul, johnFoul,
 				johnFoul, johnFoul); // Twenty fouls
 
-		var framesPerPlayer = target.getFramesPerPlayerFromTurns(turns);
+		var framesPerPlayer = target.play(turns);
 		assertEquals(1, framesPerPlayer.size());
 
 		var johnsFrames = framesPerPlayer.get("John");
