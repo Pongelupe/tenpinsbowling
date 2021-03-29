@@ -2,7 +2,7 @@
 
 This project is command-line application to score a game of ten-pin bowling.
 
-The rules implemented were based on this [bowling scores rules].
+The rules implemented were based on this [bowling scores rules tutorial].
 
 ### Tech
 
